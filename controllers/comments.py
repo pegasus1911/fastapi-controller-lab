@@ -5,7 +5,6 @@ from models.tea import TeaModel
 from serializers.comment import CommentSchema
 from typing import List
 from database import get_db
-# Initialize the router
 router = APIRouter()
 @router.get("/teas/{tea_id}/comments/", response_model=List[CommentSchema])
 def get_comments_for_tea(tea_id: int, db: Session = Depends(get_db)):
@@ -34,6 +33,6 @@ def delete_comment(comment_id: int, db: Session = Depends(get_db)):
     db_comment = db.query(CommentModel).filter(CommentModel.id == comment_id).first()
     if not db_comment:
         raise HTTPException(status_code=404, detail="Comment not found")
-    db.delete(db_comment)  # Remove from database
-    db.commit()  # Save changes
+    db.delete(db_comment)  
+    db.commit()  
     return {"message": f"Comment with ID {comment_id} has been deleted"}
