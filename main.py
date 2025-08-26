@@ -1,14 +1,15 @@
+# main.py
+
 from fastapi import FastAPI
 from controllers.teas import router as TeasRouter
-from controllers.comments import router as CommentRouter
+from controllers.users import router as UsersRouter  # Import users router
 
 app = FastAPI()
 
-app.include_router(TeasRouter, prefix='/api')
-app.include_router(CommentRouter, prefix='/api')
-
+# Register API routes
+app.include_router(TeasRouter, prefix="/api")
+app.include_router(UsersRouter, prefix="/api")  # Include users router
 
 @app.get('/')
 def home():
-    # Hello world function
-    return {'message': 'Hello World!'}
+    return 'Hello World!'
